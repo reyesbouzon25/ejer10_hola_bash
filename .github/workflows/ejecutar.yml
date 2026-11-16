@@ -23,3 +23,14 @@ jobs:
     - name: ejectuta script
       run: 
         ./src/hola.sh
+   
+    - name: crear copia
+      run: |
+        mkdir -p backup
+        zip -r backup/datos_backup.zip datos
+
+    - name: Guardar el backup como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-datos
+          path: backup/datos_backup.zip
