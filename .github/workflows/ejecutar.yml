@@ -1,35 +1,27 @@
-name: Ejecución de script
+name: Ejecutar script y hacer backup
+
 on:
   push:
-    branches: [ main ]
 
 jobs:
-  ejecutar_script:
-    runs-on: ubuntu-24.04
+  ejecutar:
+    runs-on: ubuntu-latest
     steps:
-    - name: descargar repositorio
-      uses: actions/checkout@v5
-      
-    - name: muestra usuario
-      run: 
-        whoami
-        
-    - name: permisos script
-      run: |
-        pwd
-        ls -l
-        chmod +x src/hola.sh
-       
-    - name: ejectuta script
-      run: 
-        ./src/hola.sh
-   
-    - name: crear copia
-      run: |
-        mkdir -p backup
-        zip -r backup/datos_backup.zip datos
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
 
-    - name: Guardar el backup como artefacto
+      - name: Dar permisos de ejecución al script
+        run: chmod +x src/hola.sh
+
+      - name: Ejecutar el script
+        run: ./src/hola.sh
+
+      - name: Crear copia de seguridad
+        run: |
+          mkdir -p backup
+          zip -r backup/datos_backup.zip datos
+
+      - name: Guardar el backup como artefacto
         uses: actions/upload-artifact@v4
         with:
           name: backup-datos
