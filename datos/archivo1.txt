@@ -1,2 +1,2 @@
 Contenido del primer archivo
-h
+hola
